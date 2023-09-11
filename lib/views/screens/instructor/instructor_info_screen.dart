@@ -2,20 +2,20 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_uni/models/student_model.dart';
+import 'package:my_uni/models/instructor_model.dart';
 import 'package:my_uni/utils/constants.dart';
 import 'package:my_uni/views/widgets/my_dialog_widget.dart';
 
-class StudentInfoScreen extends StatefulWidget {
-  const StudentInfoScreen({super.key, required this.student});
+class InstructorsInfoScreen extends StatefulWidget {
+  const InstructorsInfoScreen({super.key, required this.instructor});
 
-  final Student student;
+  final Instructor instructor;
 
   @override
-  State<StudentInfoScreen> createState() => _StudentInfoScreenState();
+  State<InstructorsInfoScreen> createState() => _InstructorsInfoScreenState();
 }
 
-class _StudentInfoScreenState extends State<StudentInfoScreen> {
+class _InstructorsInfoScreenState extends State<InstructorsInfoScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -25,7 +25,7 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
         backgroundColor: primaryColor,
         centerTitle: true,
         title: Text(
-          "${widget.student.name} ${widget.student.surname}",
+          "${widget.instructor.degree ?? ""} ${widget.instructor.name} ${widget.instructor.surname}",
           style: GoogleFonts.poppins(
             fontSize: 20,
             color: Colors.white,
@@ -45,12 +45,12 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                         dialogType: DialogType.warning,
                         animType: AnimType.bottomSlide,
                         title: 'Are you sure?',
-                        desc: 'You want to deactive this student?',
+                        desc: 'You want to delete this instructor?',
                         btnCancelOnPress: () {},
-                        btnOkOnPress: () {},
+                        btnOkOnPress: () {}, //TODO: delete instructor
                       ).show();
                     },
-                    child: const Text('Deactive this student'),
+                    child: const Text('Delete this instructor'),
                   ),
                   const SizedBox(height: 10),
                   SimpleDialogOption(
@@ -89,13 +89,13 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ClipOval(
-                        child: widget.student.imageUrl == null
+                        child: widget.instructor.imageUrl == null
                             ? SizedBox(
                                 width: 100,
                                 height: 100,
                                 child: CircleAvatar(
                                   child: Text(
-                                    widget.student.name![0],
+                                    widget.instructor.name![0],
                                     style: const TextStyle(
                                       fontSize: 40,
                                     ),
@@ -110,7 +110,7 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                                       return Dialog(
                                         child: CachedNetworkImage(
                                           fit: BoxFit.contain,
-                                          imageUrl: widget.student.imageUrl!,
+                                          imageUrl: widget.instructor.imageUrl!,
                                           placeholder: (context, url) =>
                                               const CircularProgressIndicator(),
                                           errorWidget: (context, url, error) =>
@@ -121,7 +121,8 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                                   );
                                 },
                                 child: CachedNetworkImage(
-                                  imageUrl: widget.student.imageUrl.toString(),
+                                  imageUrl:
+                                      widget.instructor.imageUrl.toString(),
                                   width: 100,
                                   height: 100,
                                   fit: BoxFit.cover,
@@ -143,11 +144,11 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 110,
+                          width: 115,
                           child: Column(
                             children: [
                               Text(
-                                "Student No",
+                                "Instructor No",
                                 style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
@@ -157,7 +158,7 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                               const Divider(color: Colors.white),
                               const SizedBox(height: 5),
                               Text(
-                                widget.student.id.toString(),
+                                widget.instructor.id.toString(),
                                 style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 20,
@@ -169,7 +170,7 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                         ),
                         const SizedBox(width: 30),
                         SizedBox(
-                          width: 110,
+                          width: 115,
                           child: Column(
                             children: [
                               Text(
@@ -183,7 +184,7 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                               const Divider(color: Colors.white),
                               const SizedBox(height: 5),
                               Text(
-                                widget.student.department.toString(),
+                                widget.instructor.department.toString(),
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w500,
@@ -213,7 +214,7 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Student Info",
+                          "Instructor Info",
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -238,7 +239,28 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                         ),
                         const SizedBox(width: 20),
                         Text(
-                          "${widget.student.name} ${widget.student.surname}",
+                          "${widget.instructor.name} ${widget.instructor.surname}",
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: size.height * 0.01),
+                    Row(
+                      children: [
+                        Text(
+                          "Degree:",
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: primaryColor,
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Text(
+                          widget.instructor.degree.toString(),
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -259,7 +281,7 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                         ),
                         const SizedBox(width: 20),
                         Text(
-                          widget.student.gender.toString(),
+                          widget.instructor.gender.toString(),
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -280,28 +302,7 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                         ),
                         const SizedBox(width: 20),
                         Text(
-                          widget.student.department.toString(),
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: size.height * 0.01),
-                    Row(
-                      children: [
-                        Text(
-                          "Grade:",
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: primaryColor,
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        Text(
-                          widget.student.grade.toString(),
+                          widget.instructor.department.toString(),
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -322,7 +323,7 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                         ),
                         const SizedBox(width: 20),
                         Text(
-                          widget.student.email.toString(),
+                          widget.instructor.email.toString(),
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -343,7 +344,7 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                         ),
                         const SizedBox(width: 20),
                         Text(
-                          widget.student.phoneNumber.toString(),
+                          widget.instructor.phoneNumber.toString(),
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -366,32 +367,11 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                         Flexible(
                           child: Text(
                             overflow: TextOverflow.clip,
-                            widget.student.adress.toString(),
+                            widget.instructor.adress.toString(),
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: size.height * 0.01),
-                    Row(
-                      children: [
-                        Text(
-                          "GPA:",
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: primaryColor,
-                          ),
-                        ),
-                        const SizedBox(width: 20),
-                        Text(
-                          widget.student.gpa.toString(),
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
                           ),
                         ),
                       ],

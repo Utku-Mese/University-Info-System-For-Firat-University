@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_uni/utils/constants.dart';
-import 'package:my_uni/views/screens/instructors_screen.dart';
-import 'package:my_uni/views/screens/lessons_screen.dart';
-import 'package:my_uni/views/screens/students_screen.dart';
+import 'package:my_uni/views/screens/home_screen.dart';
+import 'package:my_uni/views/screens/instructor/instructors_screen.dart';
+import 'package:my_uni/views/screens/lesson/lessons_screen.dart';
+import 'package:my_uni/views/screens/student/students_screen.dart';
 import 'package:stylish_bottom_bar/model/bar_items.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
@@ -123,7 +124,7 @@ class _PagesScreenState extends State<PagesScreen> {
           physics: const NeverScrollableScrollPhysics(),
           controller: controller,
           children: const [
-            Center(child: Text('Home')),
+            HomeScreen(),
             LessonsScreen(),
             StudentsScreen(),
             InstructorsScreen(),
