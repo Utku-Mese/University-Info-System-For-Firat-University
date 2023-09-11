@@ -4,6 +4,8 @@ class Student {
   String? surname;
   String? gender;
   String? department;
+  String? grade;
+  String? email;
   String? phoneNumber;
   String? adress;
   double? gpa;
@@ -16,6 +18,8 @@ class Student {
       this.surname,
       this.gender,
       this.department,
+      this.grade,
+      this.email,
       this.phoneNumber,
       this.adress,
       this.gpa,
@@ -28,6 +32,8 @@ class Student {
     surname = json['surname'];
     gender = json['gender'];
     department = json['department'];
+    grade = json['grade'];
+    email = json['email'];
     phoneNumber = json['phoneNumber'];
     adress = json['adress'];
     gpa = json['gpa'];
@@ -42,6 +48,7 @@ class Student {
     data['surname'] = surname;
     data['gender'] = gender;
     data['department'] = department;
+    data['grade'] = grade;
     data['phoneNumber'] = phoneNumber;
     data['adress'] = adress;
     data['gpa'] = gpa;

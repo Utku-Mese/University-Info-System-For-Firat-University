@@ -2,8 +2,10 @@ class Instructor {
   int? id;
   String? name;
   String? surname;
+  String? degree;
   String? gender;
   String? department;
+  String? email;
   String? phoneNumber;
   String? adress;
   int? isActive;
@@ -13,8 +15,10 @@ class Instructor {
       {this.id,
       this.name,
       this.surname,
+      this.degree,
       this.gender,
       this.department,
+      this.email,
       this.phoneNumber,
       this.adress,
       this.isActive,
@@ -24,8 +28,10 @@ class Instructor {
     id = json['id'];
     name = json['name'];
     surname = json['surname'];
+    degree = json['degree'];
     gender = json['gender'];
     department = json['department'];
+    email = json['email'];
     phoneNumber = json['phoneNumber'];
     adress = json['adress'];
     isActive = json['isActive'];
@@ -37,8 +43,10 @@ class Instructor {
     data['id'] = id;
     data['name'] = name;
     data['surname'] = surname;
+    data['degree'] = degree;
     data['gender'] = gender;
     data['department'] = department;
+    data['email'] = email;
     data['phoneNumber'] = phoneNumber;
     data['adress'] = adress;
     data['isActive'] = isActive;

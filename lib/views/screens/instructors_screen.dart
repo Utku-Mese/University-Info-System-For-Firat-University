@@ -2,34 +2,34 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:my_uni/models/instructor_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_uni/models/student_model.dart';
-import 'package:my_uni/views/screens/student_info_screen.dart';
+import 'package:my_uni/views/screens/instructor_info_screen.dart';
 
-class StudentsScreen extends StatefulWidget {
-  const StudentsScreen({super.key});
+class InstructorsScreen extends StatefulWidget {
+  const InstructorsScreen({super.key});
 
   @override
-  State<StudentsScreen> createState() => _StudentsScreenState();
+  State<InstructorsScreen> createState() => _InstructorsScreenState();
 }
 
-class _StudentsScreenState extends State<StudentsScreen> {
-  List<Student> parseStudents(String responseBody) {
+class _InstructorsScreenState extends State<InstructorsScreen> {
+  List<Instructor> parseInstructors(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-    return parsed.map<Student>((json) => Student.fromJson(json)).toList();
+    return parsed.map<Instructor>((json) => Instructor.fromJson(json)).toList();
   }
 
-  Future<List<Student>> fetchStudents() async {
+  Future<List<Instructor>> fetchInstructors() async {
     final response =
-        await http.get(Uri.parse('http://192.168.1.34:8000/api/students'));
+        await http.get(Uri.parse('http://192.168.1.34:8000/api/instructors'));
 
     if (response.statusCode == 200) {
-      //return parseStudents(response.body);
-      final students = parseStudents(response.body);
-      // isActive değeri 1 olan öğrencileri filtreler
-      final activeStudents =
-          students.where((student) => student.isActive == 1).toList();
-      return activeStudents;
+      //return parseInstructors(response.body);
+      final instructors = parseInstructors(response.body);
+      // isActive değeri 1 olan öğretim görevlilerini filtreler
+      final activeInstructors =
+          instructors.where((instructor) => instructor.isActive == 1).toList();
+      return activeInstructors;
     } else {
       throw Exception('API request failed: ${response.statusCode}');
     }
@@ -37,38 +37,42 @@ class _StudentsScreenState extends State<StudentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Student>>(
-      future: fetchStudents(),
+    return FutureBuilder<List<Instructor>>(
+      future: fetchInstructors(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Text('Could not retrieve data: ${snapshot.error}');
         } else {
-          final students = snapshot.data;
+          final instructors = snapshot.data;
           return RefreshIndicator(
             onRefresh: () async {
               setState(() {
-                fetchStudents();
+                fetchInstructors();
               });
             },
             child: ListView.builder(
-              itemCount: students?.length,
+              itemCount: instructors?.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return StudentInfoScreen(student: students[index]);
+                        return InstructorsInfoScreen(
+                          instructor: instructors[index],
+                        );
                       },
                     ));
                   },
-                  title: Text(
-                      " ${students?[index].name}  ${students?[index].surname}"),
-                  subtitle: Text(students![index].department.toString()),
+                  title: Flexible(
+                    child: Text(
+                        "${instructors?[index].degree ?? ""} ${instructors?[index].name}  ${instructors?[index].surname}"),
+                  ),
+                  subtitle: Text(instructors![index].department.toString()),
                   leading: CircleAvatar(
-                    child: students[index].imageUrl == null
-                        ? Text(students[index].name![0])
+                    child: instructors[index].imageUrl == null
+                        ? Text(instructors[index].name![0])
                         : ClipRRect(
                             borderRadius: BorderRadius.circular(50.0),
                             child: GestureDetector(
@@ -79,7 +83,7 @@ class _StudentsScreenState extends State<StudentsScreen> {
                                     return Dialog(
                                       child: CachedNetworkImage(
                                         fit: BoxFit.contain,
-                                        imageUrl: students[index].imageUrl!,
+                                        imageUrl: instructors[index].imageUrl!,
                                         placeholder: (context, url) =>
                                             const CircularProgressIndicator(),
                                         errorWidget: (context, url, error) =>
@@ -90,7 +94,7 @@ class _StudentsScreenState extends State<StudentsScreen> {
                                 );
                               },
                               child: CachedNetworkImage(
-                                imageUrl: students[index].imageUrl!,
+                                imageUrl: instructors[index].imageUrl!,
                                 placeholder: (context, url) =>
                                     const CircularProgressIndicator(),
                                 errorWidget: (context, url, error) =>

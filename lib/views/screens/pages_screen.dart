@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_uni/utils/constants.dart';
+import 'package:my_uni/views/screens/instructors_screen.dart';
+import 'package:my_uni/views/screens/lessons_screen.dart';
 import 'package:my_uni/views/screens/students_screen.dart';
 import 'package:stylish_bottom_bar/model/bar_items.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
@@ -25,6 +27,23 @@ class _PagesScreenState extends State<PagesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 50,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(30),
+            bottomRight: Radius.circular(30),
+          ),
+        ),
+        backgroundColor: primaryColor,
+        elevation: 0,
+        centerTitle: true,
+        title: Image.asset(
+          "assets/logo.png",
+          height: 50,
+          width: 50,
+        ),
+      ),
       extendBody: true,
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: StylishBottomBar(
@@ -74,7 +93,7 @@ class _PagesScreenState extends State<PagesScreen> {
                 size: 25,
               ),
               selectedColor: primaryColor,
-              title: const Text('Profile')),
+              title: const Text('instructors')),
         ],
         hasNotch: true,
         fabLocation: StylishBarFabLocation.center,
@@ -105,9 +124,9 @@ class _PagesScreenState extends State<PagesScreen> {
           controller: controller,
           children: const [
             Center(child: Text('Home')),
-            Center(child: Text('Star')),
+            LessonsScreen(),
             StudentsScreen(),
-            Center(child: Text('Profile')),
+            InstructorsScreen(),
           ],
         ),
       ),

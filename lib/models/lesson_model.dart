@@ -3,6 +3,7 @@ class Lesson {
   String? name;
   String? shortName;
   String? descriptions;
+  String? department;
   int? grade;
   int? credit;
   int? obligation;
@@ -13,6 +14,7 @@ class Lesson {
       this.name,
       this.shortName,
       this.descriptions,
+      this.department,
       this.grade,
       this.credit,
       this.obligation,
@@ -23,6 +25,7 @@ class Lesson {
     name = json['name'];
     shortName = json['shortName'];
     descriptions = json['descriptions'];
+    department = json['department'];
     grade = json['grade'];
     credit = json['credit'];
     obligation = json['obligation'];
@@ -35,6 +38,7 @@ class Lesson {
     data['name'] = name;
     data['shortName'] = shortName;
     data['descriptions'] = descriptions;
+    data['department'] = department;
     data['grade'] = grade;
     data['credit'] = credit;
     data['obligation'] = obligation;

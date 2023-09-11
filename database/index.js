@@ -53,10 +53,10 @@ app.use("/api/lessons/:id", async (req, res) => {
 // post lessons
 app.post("/api/lessons", (req, res) => {
     console.log(req.body);
-    const { name, shortName, descriptions, grade, credit, obligation, instructor } = req.body;
+    const { name, shortName, descriptions, department, grade, credit, obligation, instructor } = req.body;
 
-    const query = "INSERT INTO lessons (name, shortName, descriptions, grade, credit, obligation, instructor) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    const values = [name, shortName, descriptions, grade, credit, obligation, instructor];
+    const query = "INSERT INTO lessons (name, shortName, descriptions, department, grade, credit, obligation, instructor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    const values = [name, shortName, descriptions, department, grade, credit, obligation, instructor];
 
     // Undefined değerleri JS null ile değiştir
     const sanitizedValues = values.map(value => (value !== undefined) ? value : null);
@@ -81,10 +81,10 @@ app.post("/api/instructors", (req, res) => {
 // post student
 app.post("/api/students", (req, res) => {
     console.log(req.body);
-    const { name, surname, department, email, isActive, gender, phoneNumber, adress, gpa, imageUrl } = req.body;
+    const { name, surname, department, grade, email, isActive, gender, phoneNumber, adress, gpa, imageUrl } = req.body;
 
-    const query = "INSERT INTO students (name, surname, department, email, isActive, gender, phoneNumber, adress, gpa, imageUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    const values = [name, surname, department, email, isActive, gender, phoneNumber, adress, gpa, imageUrl];
+    const query = "INSERT INTO students (name, surname, department, grade, email, isActive, gender, phoneNumber, adress, gpa, imageUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const values = [name, surname, department, grade, email, isActive, gender, phoneNumber, adress, gpa, imageUrl];
 
     // Undefined değerleri JS null ile değiştir
     const sanitizedValues = values.map(value => (value !== undefined) ? value : null);
