@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_uni/controllers/instructor_controller.dart';
 import 'package:my_uni/models/instructor_model.dart';
 import 'package:my_uni/utils/constants.dart';
 import 'package:my_uni/views/widgets/my_dialog_widget.dart';
@@ -16,6 +17,8 @@ class InstructorsInfoScreen extends StatefulWidget {
 }
 
 class _InstructorsInfoScreenState extends State<InstructorsInfoScreen> {
+  final InstructorController _instructorController = InstructorController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -47,7 +50,17 @@ class _InstructorsInfoScreenState extends State<InstructorsInfoScreen> {
                         title: 'Are you sure?',
                         desc: 'You want to delete this instructor?',
                         btnCancelOnPress: () {},
-                        btnOkOnPress: () {}, //TODO: delete instructor
+                        btnOkOnPress: () async {
+                          print("instructors siliniyor...");
+                          int instructorIdToDelete = widget.instructor.id!;
+
+                          try {
+                            await _instructorController
+                                .deleteInstructor(instructorIdToDelete);
+                          } catch (e) {
+                            debugPrint('Hata: $e');
+                          }
+                        },
                       ).show();
                     },
                     child: const Text('Delete this instructor'),

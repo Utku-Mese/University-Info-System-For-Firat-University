@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_uni/controllers/student_controller.dart';
 import 'package:my_uni/models/student_model.dart';
 import 'package:my_uni/utils/constants.dart';
 import 'package:my_uni/views/widgets/my_dialog_widget.dart';
@@ -16,6 +17,8 @@ class StudentInfoScreen extends StatefulWidget {
 }
 
 class _StudentInfoScreenState extends State<StudentInfoScreen> {
+  final StudentController _studentController = StudentController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -38,6 +41,30 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
               MyDilog.showMyDialog(
                 context: context,
                 children: [
+                  SimpleDialogOption(
+                    onPressed: () {
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.warning,
+                        animType: AnimType.bottomSlide,
+                        title: 'Are you sure?',
+                        desc: 'You want to delete this student?',
+                        btnCancelOnPress: () {},
+                        btnOkOnPress: () async {
+                          print("Öğrenci siliniyor...");
+                          int studentIdToDelete = widget.student.id!;
+
+                          try {
+                            await _studentController
+                                .deleteStudent(studentIdToDelete);
+                          } catch (e) {
+                            debugPrint('Hata: $e');
+                          }
+                        },
+                      ).show();
+                    },
+                    child: const Text('Delete this student'),
+                  ),
                   const SizedBox(height: 10),
                   SimpleDialogOption(
                     onPressed: () {

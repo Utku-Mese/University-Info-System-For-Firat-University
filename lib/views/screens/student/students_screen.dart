@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:my_uni/controllers/student_controller.dart';
 import 'package:my_uni/models/student_model.dart';
 import 'package:my_uni/views/screens/student/student_info_screen.dart';

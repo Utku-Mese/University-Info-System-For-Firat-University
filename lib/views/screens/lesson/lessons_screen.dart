@@ -1,4 +1,3 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:my_uni/controllers/lesson_controller.dart';
 import 'package:my_uni/models/lesson_model.dart';
@@ -14,34 +13,9 @@ class LessonsScreen extends StatefulWidget {
 
 class _LessonsScreenState extends State<LessonsScreen> {
   final LessonController _lessonController = LessonController();
-  late AwesomeDialog dialog;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    dialog = AwesomeDialog(
-      context: context,
-      dialogType: DialogType.warning,
-      animType: AnimType.bottomSlide,
-      title: 'Are you sure?',
-      desc: 'You want to delete this lesson?',
-      btnCancelOnPress: () {},
-      btnOkOnPress: () {}, //TODO: delete lesson
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    dialog = AwesomeDialog(
-      context: context,
-      dialogType: DialogType.warning,
-      animType: AnimType.bottomSlide,
-      title: 'Are you sure?',
-      desc: 'You want to delete this lesson?',
-      btnCancelOnPress: () {},
-      btnOkOnPress: () {}, //TODO: delete lesson
-    );
     return FutureBuilder<List<Lesson>>(
       future: _lessonController.fetchLessons(),
       builder: (context, snapshot) {
@@ -98,7 +72,38 @@ class _LessonsScreenState extends State<LessonsScreen> {
                       children: [
                         SlidableAction(
                           onPressed: (context) {
-                            dialog.show();
+                            //0dialog.show();
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Are you sure?'),
+                                  content: const Text(
+                                      'You want to delete this lesson?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        /* 
+                                        _lessonController.deleteLesson(
+                                            lessons?[index].id ?? 0);
+                                        Navigator.of(context).pop();
+                                        setState(() {
+                                          _lessonController.fetchLessons();
+                                        }); 
+                                        */
+                                      },
+                                      child: const Text('Delete'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                           },
                           borderRadius: BorderRadius.circular(20.0),
                           backgroundColor: Colors.red,

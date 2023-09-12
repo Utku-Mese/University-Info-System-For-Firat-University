@@ -19,12 +19,23 @@ app.use("/api/students", (req, res) => {
     
  }); */
 
-
-// "/api/students/:id" gets a student by id
-app.use("/api/students/:id", async (req, res) => {
+// "/api/students/:id" deletes a student by id
+app.delete("/api/students/:id", async (req, res) => {
     try {
-        const [student,] = await db.execute("SELECT * FROM students WHERE id = ?", [req.params.id]);
-        res.send(student);
+        await db.query("DELETE FROM students WHERE id = ?", [req.params.id]);
+        res.send("Student deleted");
+        console.log("Student deleted");
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+// "/api/instructors/:id" deletes a instructors by id
+app.delete("/api/instructors/:id", async (req, res) => {
+    try {
+        await db.query("DELETE FROM instructors WHERE id = ?", [req.params.id]);
+        res.send("instructors deleted");
+        console.log("instructors deleted");
     } catch (err) {
         console.log(err);
     }
@@ -49,6 +60,46 @@ app.use("/api/lessons/:id", async (req, res) => {
         console.log(err);
     }
 });
+
+
+// Öğrenci güncelleme
+app.put("/api/students/:id", async (req, res) => { //TODO: Daha denemedim
+    try {
+        const studentId = parseInt(req.params.id);
+        const { name, surname, department, grade, email, isActive, gender, phoneNumber, adress, gpa, imageUrl } = req.body;
+
+        const query = `
+            UPDATE students
+            SET name = ?, surname = ?, department = ?, grade = ?, email = ?, isActive = ?, gender = ?, phoneNumber = ?, adress = ?, gpa = ?, imageUrl = ?
+            WHERE id = ?
+        `;
+
+        const values = [name, surname, department, grade, email, isActive, gender, phoneNumber, adress, gpa, imageUrl, studentId];
+
+        // Undefined değerleri JS null ile değiştir
+        const sanitizedValues = values.map(value => (value !== undefined) ? value : null);
+
+        await db.execute(query, sanitizedValues);
+
+        res.send("Öğrenci güncellendi");
+        console.log("Öğrenci güncellendi");
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+// "/api/students/:id" gets a student by id
+app.use("/api/students/:id", async (req, res) => {
+    try {
+        const [student,] = await db.execute("SELECT * FROM students WHERE id = ?", [req.params.id]);
+        res.send(student);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+
+
 
 // post lessons
 app.post("/api/lessons", (req, res) => {
@@ -103,6 +154,8 @@ app.use("/api/students", async (req, res) => {
         console.log(err);
     }
 });
+
+
 
 // "/api/instructors" gets all instructors
 app.use("/api/instructors", async (req, res) => {

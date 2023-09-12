@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_uni/views/widgets/animated_counter_widget.dart';
 
 class CounterCard extends StatelessWidget {
   const CounterCard({
@@ -25,12 +26,20 @@ class CounterCard extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            Text(
+            AnimatedCounter(
+              key: const Key("key"),
+              digit: count,
+              textStyle: GoogleFonts.poppins(
+                fontSize: 25,
+              ),
+            )
+            //? This is the old code, no animation
+            /* Text(
               count.toString(),
               style: GoogleFonts.poppins(
                 fontSize: 25,
               ),
-            ),
+            ), */
           ],
         ),
       ),

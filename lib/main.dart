@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO: Student listelerken image url geçersizse debugda crash yiyor dibag kapatmak için sol alttan breackpoint kapatılabilir
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fırat Üniversitesi',

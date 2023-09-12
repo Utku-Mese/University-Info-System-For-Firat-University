@@ -1,10 +1,8 @@
-import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_uni/controllers/instructor_controller.dart';
 import 'package:my_uni/models/instructor_model.dart';
-import 'package:http/http.dart' as http;
 import 'package:my_uni/views/screens/instructor/instructor_info_screen.dart';
 
 class InstructorsScreen extends StatefulWidget {

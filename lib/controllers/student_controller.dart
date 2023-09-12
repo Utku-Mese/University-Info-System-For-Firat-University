@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_uni/models/student_model.dart';
 
@@ -21,6 +22,37 @@ class StudentController {
       return activeStudents;
     } else {
       throw Exception('API request failed: ${response.statusCode}');
+    }
+  }
+
+  Future<Student> createStudent(Student student) async {
+    final response = await http.post(
+      Uri.parse('http://192.168.1.34:8000/api/students'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(
+          student.toJson()), // Öğrenci nesnesini JSON formatına çeviriyoruz
+    );
+
+    if (response.statusCode == 201) {
+      // API tarafından oluşturulan öğrenci nesnesini döndürebilirsiniz
+      return Student.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('API request failed: ${response.statusCode}');
+    }
+  }
+
+  Future<void> deleteStudent(int studentId) async {
+    final response = await http.delete(
+      Uri.parse('http://192.168.1.34:8000/api/students/$studentId'),
+    );
+
+    if (response.statusCode == 200) {
+      debugPrint('Öğrenci başarıyla silindi.');
+    } else {
+      throw Exception(
+          'Öğrenci silme işlemi başarısız oldu: ${response.statusCode}');
     }
   }
 }
