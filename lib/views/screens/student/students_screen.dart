@@ -43,7 +43,7 @@ class _StudentsScreenState extends State<StudentsScreen> {
                     ));
                   },
                   title: Text(
-                      " ${students?[index].name}  ${students?[index].surname}"),
+                      "${students?[index].name} ${students?[index].surname}"),
                   subtitle: Text(students![index].department.toString()),
                   leading: CircleAvatar(
                     child: students[index].imageUrl == null

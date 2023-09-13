@@ -6,6 +6,8 @@ import 'package:my_uni/controllers/instructor_controller.dart';
 import 'package:my_uni/models/instructor_model.dart';
 import 'package:my_uni/utils/constants.dart';
 import 'package:my_uni/views/widgets/my_dialog_widget.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class InstructorsInfoScreen extends StatefulWidget {
   const InstructorsInfoScreen({super.key, required this.instructor});
@@ -51,7 +53,16 @@ class _InstructorsInfoScreenState extends State<InstructorsInfoScreen> {
                         desc: 'You want to delete this instructor?',
                         btnCancelOnPress: () {},
                         btnOkOnPress: () async {
-                          print("instructors siliniyor...");
+                          int count = 0;
+                          Navigator.of(context).popUntil((_) => count++ >= 2);
+
+                          showTopSnackBar(
+                            Overlay.of(context),
+                            CustomSnackBar.success(
+                              message:
+                                  "Instructor ${widget.instructor.name} ${widget.instructor.surname} deleted successfully!",
+                            ),
+                          );
                           int instructorIdToDelete = widget.instructor.id!;
 
                           try {
@@ -314,11 +325,13 @@ class _InstructorsInfoScreenState extends State<InstructorsInfoScreen> {
                           ),
                         ),
                         const SizedBox(width: 20),
-                        Text(
-                          widget.instructor.department.toString(),
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
+                        Flexible(
+                          child: Text(
+                            widget.instructor.department.toString(),
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ],

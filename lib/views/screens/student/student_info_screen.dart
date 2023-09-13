@@ -6,6 +6,8 @@ import 'package:my_uni/controllers/student_controller.dart';
 import 'package:my_uni/models/student_model.dart';
 import 'package:my_uni/utils/constants.dart';
 import 'package:my_uni/views/widgets/my_dialog_widget.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class StudentInfoScreen extends StatefulWidget {
   const StudentInfoScreen({super.key, required this.student});
@@ -51,7 +53,16 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                         desc: 'You want to delete this student?',
                         btnCancelOnPress: () {},
                         btnOkOnPress: () async {
-                          print("Öğrenci siliniyor...");
+                          int count = 0;
+                          Navigator.of(context).popUntil((_) => count++ >= 2);
+
+                          showTopSnackBar(
+                            Overlay.of(context),
+                            CustomSnackBar.success(
+                              message:
+                                  "Student ${widget.student.name} ${widget.student.surname} deleted successfully!",
+                            ),
+                          );
                           int studentIdToDelete = widget.student.id!;
 
                           try {
@@ -292,11 +303,13 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                           ),
                         ),
                         const SizedBox(width: 20),
-                        Text(
-                          widget.student.department.toString(),
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
+                        Flexible(
+                          child: Text(
+                            widget.student.department.toString(),
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ],

@@ -75,3 +75,26 @@ var genders = [
   "famale",
   "unselected",
 ];
+
+var grades = [
+  "Please select a grade*",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+];
+
+var degrees = [
+  "Please select a degree*",
+  "Dr.",
+  "Prof.",
+  "Prof. Dr.",
+  "Asst. Prof. Dr.",
+  "Assoc. Prof.",
+  "Asst. Prof.",
+  "Lecturer",
+  "Research Assistant",
+  "Teaching Assistant",
+  "Instructor",
+];

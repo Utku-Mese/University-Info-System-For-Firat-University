@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:my_uni/models/lesson_model.dart';
 
@@ -16,6 +17,35 @@ class LessonController {
       return parseLessons(response.body);
     } else {
       throw Exception('API request failed: ${response.statusCode}');
+    }
+  }
+
+  Future<Lesson> createLesson(Lesson lesson) async {
+    final response = await http.post(
+      Uri.parse('http://192.168.1.34:8000/api/lessons'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(lesson.toJson()),
+    );
+
+    if (response.statusCode == 201) {
+      return Lesson.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('API request failed: ${response.statusCode}');
+    }
+  }
+
+  Future<void> deleteLesson(int lessonId) async {
+    final response = await http.delete(
+      Uri.parse('http://192.168.1.34:8000/api/Lessons/$lessonId'),
+    );
+
+    if (response.statusCode == 200) {
+      debugPrint('lesson başarıyla silindi.');
+    } else {
+      throw Exception(
+          'lesson silme işlemi başarısız oldu: ${response.statusCode}');
     }
   }
 }

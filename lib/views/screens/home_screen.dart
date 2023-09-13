@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_uni/controllers/instructor_controller.dart';
 import 'package:my_uni/controllers/lesson_controller.dart';
 import 'package:my_uni/controllers/student_controller.dart';
+import 'package:my_uni/views/screens/instructor/add_instructor_screen.dart';
+import 'package:my_uni/views/screens/lesson/add_lesson_screen.dart';
 import 'package:my_uni/views/screens/student/add_student_screen.dart';
 import 'package:my_uni/views/widgets/counter_card_widgets.dart';
 import 'package:my_uni/views/widgets/my_button_widget.dart';
@@ -95,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AddStudentScreen(),
+                builder: (context) => const AddStudentScreen(),
               ),
             );
           },
@@ -103,11 +105,31 @@ class _HomeScreenState extends State<HomeScreen> {
         const SizedBox(
           height: 20,
         ),
-        MyButton(size: size, text: "Add Instructor", onPressed: () {}),
+        MyButton(
+            size: size,
+            text: "Add Instructor",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AddInstructurScreen(),
+                ),
+              );
+            }),
         const SizedBox(
           height: 20,
         ),
-        MyButton(size: size, text: "Add Lesson", onPressed: () {}),
+        MyButton(
+            size: size,
+            text: "Add Lesson",
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AddLessonScreen(),
+                ),
+              );
+            }),
       ],
     );
   }

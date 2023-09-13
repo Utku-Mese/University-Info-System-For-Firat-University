@@ -3,6 +3,8 @@ import 'package:my_uni/controllers/lesson_controller.dart';
 import 'package:my_uni/models/lesson_model.dart';
 import 'package:my_uni/views/widgets/my_dialog_widget.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class LessonsScreen extends StatefulWidget {
   const LessonsScreen({super.key});
@@ -88,15 +90,29 @@ class _LessonsScreenState extends State<LessonsScreen> {
                                       child: const Text('Cancel'),
                                     ),
                                     TextButton(
-                                      onPressed: () {
-                                        /* 
-                                        _lessonController.deleteLesson(
-                                            lessons?[index].id ?? 0);
-                                        Navigator.of(context).pop();
+                                      onPressed: () async {
+                                        print("lesson siliniyor...");
+                                        int? lessonIdToDelete =
+                                            lessons![index].id;
+
+                                        try {
+                                          await _lessonController
+                                              .deleteLesson(lessonIdToDelete!);
+                                        } catch (e) {
+                                          debugPrint('Hata: $e');
+                                        }
+
                                         setState(() {
+                                          Navigator.of(context).pop();
                                           _lessonController.fetchLessons();
-                                        }); 
-                                        */
+                                          showTopSnackBar(
+                                            Overlay.of(context),
+                                            const CustomSnackBar.success(
+                                              message:
+                                                  "Lesson deleted successfully!",
+                                            ),
+                                          );
+                                        });
                                       },
                                       child: const Text('Delete'),
                                     ),

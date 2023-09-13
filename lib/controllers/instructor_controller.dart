@@ -26,6 +26,22 @@ class InstructorController {
     }
   }
 
+  Future<Instructor> createInstructor(Instructor instructor) async {
+    final response = await http.post(
+      Uri.parse('http://192.168.1.34:8000/api/instructors'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(instructor.toJson()),
+    );
+
+    if (response.statusCode == 201) {
+      return Instructor.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('API request failed: ${response.statusCode}');
+    }
+  }
+
   Future<void> deleteInstructor(int instructorId) async {
     final response = await http.delete(
       Uri.parse('http://192.168.1.34:8000/api/instructors/$instructorId'),

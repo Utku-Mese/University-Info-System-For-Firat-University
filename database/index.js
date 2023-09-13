@@ -30,6 +30,17 @@ app.delete("/api/students/:id", async (req, res) => {
     }
 });
 
+// "/api/lessons/:id" deletes a lessons by id
+app.delete("/api/lessons/:id", async (req, res) => {
+    try {
+        await db.query("DELETE FROM lessons WHERE id = ?", [req.params.id]);
+        res.send("lessons deleted");
+        console.log("lessons deleted");
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 // "/api/instructors/:id" deletes a instructors by id
 app.delete("/api/instructors/:id", async (req, res) => {
     try {

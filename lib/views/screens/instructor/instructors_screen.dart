@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:my_uni/controllers/instructor_controller.dart';
@@ -47,7 +46,7 @@ class _InstructorsScreenState extends State<InstructorsScreen> {
                   },
                   title: Flexible(
                     child: Text(
-                        "${instructors?[index].degree ?? ""} ${instructors?[index].name}  ${instructors?[index].surname}"),
+                        "${instructors?[index].degree ?? ""} ${instructors?[index].name} ${instructors?[index].surname}"),
                   ),
                   subtitle: Text(instructors![index].department.toString()),
                   leading: CircleAvatar(

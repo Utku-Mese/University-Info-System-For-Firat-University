@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_uni/controllers/student_controller.dart';
-import 'package:my_uni/models/student_model.dart';
+import 'package:my_uni/controllers/instructor_controller.dart';
+import 'package:my_uni/models/instructor_model.dart';
 import 'package:my_uni/utils/constants.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-class AddStudentScreen extends StatefulWidget {
-  const AddStudentScreen({super.key});
+class AddInstructurScreen extends StatefulWidget {
+  const AddInstructurScreen({super.key});
 
   @override
-  State<AddStudentScreen> createState() => _AddStudentScreenState();
+  State<AddInstructurScreen> createState() => _AddInstructurScreenState();
 }
 
-class _AddStudentScreenState extends State<AddStudentScreen> {
+class _AddInstructurScreenState extends State<AddInstructurScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surnameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
-  final TextEditingController gpaController = TextEditingController();
   final TextEditingController imageUrlController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController gradeController = TextEditingController();
 
-  final StudentController _studentController = StudentController();
+  final InstructorController _instructorController = InstructorController();
 
   String selectedDepartment = "Please select a department*";
   String selectedGender = "Please select a gender*";
+  String selectedDegree = "Please select a degree*";
   bool isActive = true;
 
   final _formKey = GlobalKey<FormState>();
@@ -40,7 +39,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
       appBar: AppBar(
         foregroundColor: primaryColor,
         title: Text(
-          "Add new student",
+          "Add new instructor",
           style: GoogleFonts.poppins(
             fontSize: 20,
             fontWeight: FontWeight.w500,
@@ -95,6 +94,38 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                       return null;
                     }
                   },
+                ),
+                const SizedBox(height: 12),
+                Flexible(
+                  child: DropdownButtonFormField(
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                    ),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (value) {
+                      if (value == "Please select a degree*") {
+                        return "Please select a degree";
+                      }
+                      return null;
+                    },
+                    style: TextStyle(
+                      color: Colors.black.withOpacity(0.8),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    value: selectedDegree,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: degrees.map((String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedDegree = newValue!;
+                      });
+                    },
+                  ),
                 ),
                 const SizedBox(height: 12),
                 Flexible(
@@ -163,37 +194,6 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                 const SizedBox(height: 12),
                 TextFormField(
                   textInputAction: TextInputAction.next,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: gradeController,
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
-                    } else if (value.contains('@') || value.contains('.')) {
-                      return 'Do not use the @ and . char';
-                    } else if (value.length > 3 || value.length < 3) {
-                      return 'Please enter a valid grade';
-                    } else if (value[1] != "/") {
-                      return 'Please enter a valid grade';
-                    } else if (value[0] == "0") {
-                      return 'Please enter a valid grade';
-                    } else if (value[2] == "0") {
-                      return 'Please enter a valid grade';
-                    } else if (value[1] != "/") {
-                      return 'Please enter a valid grade';
-                    } else if (int.parse(value[0]) > int.parse(value[2])) {
-                      return 'Please enter a valid grade';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'Grade*',
-                    hintText: "Ex: 3/4",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.emailAddress,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: emailController,
@@ -214,7 +214,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                 const SizedBox(height: 12),
                 TextFormField(
                   textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.number,
                   obscureText: true,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: phoneNumberController,
@@ -242,33 +242,6 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                   decoration: const InputDecoration(
                     labelText: 'Address',
                     hintText: "Ex: Folower street No:55 /Denizli, Turkey",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.number,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: gpaController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter some text';
-                    } else if (value.contains('@') || value.contains('/')) {
-                      return 'Do not use the @ and / char';
-                    } else if (double.parse(value) > 4.0 ||
-                        double.parse(value) < 0.0) {
-                      return 'Please enter a valid GPA';
-                    } else if (value.length > 4 || value.length < 3) {
-                      return 'Please enter a valid GPA';
-                    } else if (value[1] != ".") {
-                      return 'Please enter a valid GPA';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                    labelText: 'GPA*',
-                    hintText: "Ex: 3.55 or 3.0",
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -304,9 +277,13 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                               dismissDirection: DismissDirection.up,
                               content: Text('Processing Data')),
                         ); */
-                        Student newStudent = Student(
+
+                        Instructor newInstructor = Instructor(
                           name: nameController.text,
                           surname: surnameController.text,
+                          degree: selectedDegree != "Please select a degree*"
+                              ? selectedDegree
+                              : null,
                           gender: selectedGender != "Please select a gender*"
                               ? selectedGender
                               : null,
@@ -314,13 +291,11 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                                   "Please select a department*"
                               ? selectedDepartment
                               : null,
-                          grade: gradeController.text,
                           email: emailController.text,
                           phoneNumber: phoneNumberController.text,
                           adress: addressController.text == ""
                               ? null
                               : addressController.text,
-                          gpa: double.parse(gpaController.text),
                           imageUrl: imageUrlController.text == ""
                               ? null
                               : imageUrlController.text,
@@ -332,17 +307,18 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                             Overlay.of(context),
                             CustomSnackBar.success(
                               message:
-                                  "Student ${newStudent.name} ${newStudent.surname} created successfully!",
+                                  "Instructor ${newInstructor.name} ${newInstructor.surname} created successfully!",
                             ),
                           );
                           Navigator.of(context).pop();
-                          await _studentController.createStudent(newStudent);
+                          await _instructorController
+                              .createInstructor(newInstructor);
                         } catch (e) {
                           showTopSnackBar(
                             Overlay.of(context),
                             const CustomSnackBar.error(
                               message:
-                                  "An error occured while creating student!",
+                                  "An error occured while creating instructor!",
                             ),
                           );
                           debugPrint('Hata: $e');

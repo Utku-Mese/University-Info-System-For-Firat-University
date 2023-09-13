@@ -49,6 +49,7 @@ class Student {
     data['gender'] = gender;
     data['department'] = department;
     data['grade'] = grade;
+    data['email'] = email;
     data['phoneNumber'] = phoneNumber;
     data['adress'] = adress;
     data['gpa'] = gpa;
