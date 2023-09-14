@@ -215,7 +215,6 @@ class _AddInstructurScreenState extends State<AddInstructurScreen> {
                 TextFormField(
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
-                  obscureText: true,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: phoneNumberController,
                   validator: (value) {

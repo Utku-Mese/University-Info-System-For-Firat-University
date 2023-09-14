@@ -36,7 +36,7 @@ class StudentController {
     );
 
     if (response.statusCode == 201) {
-      // API tarafından oluşturulan öğrenci nesnesini döndürebilirsiniz
+      // API tarafından oluşturulan öğrenci nesnesi döndürlebilir
       return Student.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('API request failed: ${response.statusCode}');

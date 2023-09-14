@@ -1,3 +1,5 @@
+//TODO: set your db settings
+
 const config = {
     db: {
         host: 'localhost',

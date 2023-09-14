@@ -215,7 +215,6 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                 TextFormField(
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.phone,
-                  obscureText: true,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: phoneNumberController,
                   validator: (value) {

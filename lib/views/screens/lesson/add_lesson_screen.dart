@@ -180,7 +180,6 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                 TextFormField(
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
-                  obscureText: true,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: creditController,
                   validator: (value) {

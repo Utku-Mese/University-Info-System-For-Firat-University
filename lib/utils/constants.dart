@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+// Colors
 Color primaryColor = const Color(0xff79133f);
 Color secondaryColor = const Color(0xffa11950);
 
+// Lists
 var departments = [
   "Please select a department*",
   "Architecture",
