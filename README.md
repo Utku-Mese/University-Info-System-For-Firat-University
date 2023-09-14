@@ -7,9 +7,7 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
-- [Contributing](#contributing)
+- [Contributions](#contributions)
 - [License](#license)
 
 ## Overview
@@ -86,5 +84,17 @@ To install and run the project locally, follow these steps:
 
     ```shell
     flutter run
+
+## Contributions
+
+Contributions are welcome! If you find a bug or want to add new features, feel free to open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the [MIT License](/LICENSE).
+
+---
+
+### Designed and developed with by [Mehmet Utku Meşe](https://www.linkedin.com/in/mehmet-utku-mese/).
 
 
