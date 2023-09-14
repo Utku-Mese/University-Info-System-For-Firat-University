@@ -32,6 +32,10 @@ note: You can access database tables with .sql extension from the "db tables" fo
 - Delete lessons, students, and instructors when needed.
 - API endpoints for programmatic access to university data.
 
+## MVC Architecture
+
+This project follows the MVC (Model-View-Controller) architectural pattern, which helps in organizing and managing the codebase effectively. By adhering to the MVC architecture, the project achieves a clear separation of concerns, making it easier to manage and extend in the future. The Model, View, and Controller components collaborate harmoniously to provide a robust and maintainable system for managing university information.
+
 ## Getting Started
 
 ### Prerequisites
