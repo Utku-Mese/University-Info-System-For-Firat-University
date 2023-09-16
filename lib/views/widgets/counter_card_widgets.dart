@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_uni/views/widgets/animated_counter_widget.dart';
+import 'animated_counter_widget.dart';
 
 class CounterCard extends StatelessWidget {
   const CounterCard({

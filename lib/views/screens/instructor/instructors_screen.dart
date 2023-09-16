@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:my_uni/controllers/instructor_controller.dart';
-import 'package:my_uni/models/instructor_model.dart';
-import 'package:my_uni/views/screens/instructor/instructor_info_screen.dart';
+import '../../../controllers/instructor_controller.dart';
+import '../../../models/instructor_model.dart';
+import 'instructor_info_screen.dart';
 
 class InstructorsScreen extends StatefulWidget {
   const InstructorsScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_uni/controllers/lesson_controller.dart';
-import 'package:my_uni/models/lesson_model.dart';
-import 'package:my_uni/views/widgets/my_dialog_widget.dart';
+import '../../../controllers/lesson_controller.dart';
+import '../../../models/lesson_model.dart';
+import '../../widgets/my_dialog_widget.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';

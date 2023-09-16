@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:my_uni/controllers/instructor_controller.dart';
-import 'package:my_uni/controllers/lesson_controller.dart';
-import 'package:my_uni/controllers/student_controller.dart';
-import 'package:my_uni/views/screens/instructor/add_instructor_screen.dart';
-import 'package:my_uni/views/screens/lesson/add_lesson_screen.dart';
-import 'package:my_uni/views/screens/student/add_student_screen.dart';
-import 'package:my_uni/views/widgets/counter_card_widgets.dart';
-import 'package:my_uni/views/widgets/my_button_widget.dart';
+import '../../controllers/instructor_controller.dart';
+import '../../controllers/lesson_controller.dart';
+import '../../controllers/student_controller.dart';
+import 'instructor/add_instructor_screen.dart';
+import 'lesson/add_lesson_screen.dart';
+import 'student/add_student_screen.dart';
+import '../widgets/counter_card_widgets.dart';
+import '../widgets/my_button_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

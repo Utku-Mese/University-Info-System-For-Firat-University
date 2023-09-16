@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_uni/controllers/student_controller.dart';
-import 'package:my_uni/models/student_model.dart';
-import 'package:my_uni/utils/constants.dart';
+import '../../../controllers/student_controller.dart';
+import '../../../models/student_model.dart';
+import '../../../utils/constants.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 

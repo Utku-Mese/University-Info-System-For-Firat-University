@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_uni/models/lesson_model.dart';
+import '../models/lesson_model.dart';
 
 class LessonController {
   List<Lesson> parseLessons(String responseBody) {

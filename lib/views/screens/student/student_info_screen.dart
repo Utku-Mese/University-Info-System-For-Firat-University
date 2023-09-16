@@ -2,10 +2,10 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:my_uni/controllers/student_controller.dart';
-import 'package:my_uni/models/student_model.dart';
-import 'package:my_uni/utils/constants.dart';
-import 'package:my_uni/views/widgets/my_dialog_widget.dart';
+import '../../../controllers/student_controller.dart';
+import '../../../models/student_model.dart';
+import '../../../utils/constants.dart';
+import '../../widgets/my_dialog_widget.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 

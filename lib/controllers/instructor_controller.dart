@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_uni/models/instructor_model.dart';
+import '../models/instructor_model.dart';
 
 class InstructorController {
   List<Instructor> parseInstructors(String responseBody) {

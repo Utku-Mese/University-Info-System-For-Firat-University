@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:my_uni/controllers/student_controller.dart';
-import 'package:my_uni/models/student_model.dart';
-import 'package:my_uni/views/screens/student/student_info_screen.dart';
+import '../../../controllers/student_controller.dart';
+import '../../../models/student_model.dart';
+import 'student_info_screen.dart';
 
 class StudentsScreen extends StatefulWidget {
   const StudentsScreen({super.key});

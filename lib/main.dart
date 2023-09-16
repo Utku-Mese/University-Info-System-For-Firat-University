@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_uni/utils/constants.dart';
-import 'package:my_uni/views/screens/pages_screen.dart';
+import 'utils/constants.dart';
+import 'views/screens/pages_screen.dart';
 
 void main() {
   runApp(const MyApp());
