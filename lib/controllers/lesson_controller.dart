@@ -36,6 +36,21 @@ class LessonController {
     }
   }
 
+  Future<void> updateLesson(Lesson lesson, int lessonId) async {
+    final response = await http.put(
+      Uri.parse('http://192.168.1.34:8000/api/lessons/$lessonId'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(lesson.toJson()),
+    );
+    if (response.statusCode == 200) {
+      debugPrint('ders başarıyla güncellendi.');
+    } else {
+      throw Exception('API request failed: ${response.statusCode}');
+    }
+  }
+
   Future<void> deleteLesson(int lessonId) async {
     final response = await http.delete(
       Uri.parse('http://192.168.1.34:8000/api/Lessons/$lessonId'),

@@ -43,6 +43,21 @@ class StudentController {
     }
   }
 
+  Future<void> updateStudent(Student student, int studentId) async {
+    final response = await http.put(
+      Uri.parse('http://192.168.1.34:8000/api/students/$studentId'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(student.toJson()),
+    );
+    if (response.statusCode == 200) {
+      debugPrint('Öğrenci başarıyla güncellendi.');
+    } else {
+      throw Exception('API request failed: ${response.statusCode}');
+    }
+  }
+
   Future<void> deleteStudent(int studentId) async {
     final response = await http.delete(
       Uri.parse('http://192.168.1.34:8000/api/students/$studentId'),

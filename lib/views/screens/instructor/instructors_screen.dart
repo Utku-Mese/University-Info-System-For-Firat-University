@@ -44,9 +44,14 @@ class _InstructorsScreenState extends State<InstructorsScreen> {
                       },
                     ));
                   },
-                  title: Flexible(
-                    child: Text(
-                        "${instructors?[index].degree ?? ""} ${instructors?[index].name} ${instructors?[index].surname}"),
+                  title: Flex(
+                    direction: Axis.horizontal,
+                    children: [
+                      Flexible(
+                        child: Text(
+                            "${instructors?[index].degree ?? ""} ${instructors?[index].name} ${instructors?[index].surname}"),
+                      ),
+                    ],
                   ),
                   subtitle: Text(instructors![index].department.toString()),
                   leading: CircleAvatar(

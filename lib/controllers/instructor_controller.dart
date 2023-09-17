@@ -42,6 +42,21 @@ class InstructorController {
     }
   }
 
+  Future<void> updateInstructor(Instructor instructor, int instructorId) async {
+    final response = await http.put(
+      Uri.parse('http://192.168.1.34:8000/api/instructors/$instructorId'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(instructor.toJson()),
+    );
+    if (response.statusCode == 200) {
+      debugPrint('Eğitmen başarıyla güncellendi.');
+    } else {
+      throw Exception('API request failed: ${response.statusCode}');
+    }
+  }
+
   Future<void> deleteInstructor(int instructorId) async {
     final response = await http.delete(
       Uri.parse('http://192.168.1.34:8000/api/instructors/$instructorId'),

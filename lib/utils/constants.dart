@@ -99,4 +99,5 @@ var degrees = [
   "Research Assistant",
   "Teaching Assistant",
   "Instructor",
+  "Instructor Dr.",
 ];

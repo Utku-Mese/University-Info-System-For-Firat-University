@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_uni/views/screens/lesson/update_lesson_screen.dart';
 import '../../../controllers/lesson_controller.dart';
 import '../../../models/lesson_model.dart';
 import '../../widgets/my_dialog_widget.dart';
@@ -68,6 +69,31 @@ class _LessonsScreenState extends State<LessonsScreen> {
                     );
                   },
                   child: Slidable(
+                    startActionPane: ActionPane(
+                      motion: const ScrollMotion(),
+                      extentRatio: 0.25,
+                      children: [
+                        SlidableAction(
+                          onPressed: (context) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return UpdateLessonScreen(
+                                    lesson: lessons![index],
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          borderRadius: BorderRadius.circular(20.0),
+                          backgroundColor: Colors.green,
+                          foregroundColor: Colors.white,
+                          icon: Icons.edit_note,
+                          label: 'Edit',
+                        ),
+                      ],
+                    ),
                     endActionPane: ActionPane(
                       motion: const ScrollMotion(),
                       extentRatio: 0.25,

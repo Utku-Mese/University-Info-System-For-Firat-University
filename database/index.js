@@ -7,18 +7,6 @@ const db = require('./data/db');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-/* const data = [
-    {id: 1, name: "John"},
-    {id: 2, name: "Jane"},
-    {id: 3, name: "Jack"}
-];
-
-
-app.use("/api/students", (req, res) => {
-    res.send(data);
-    
- }); */
-
 // "/api/students/:id" deletes a student by id
 app.delete("/api/students/:id", async (req, res) => {
     try {
@@ -52,29 +40,8 @@ app.delete("/api/instructors/:id", async (req, res) => {
     }
 });
 
-// "/api/instructors/:id" gets a instructors by id
-app.use("/api/instructors/:id", async (req, res) => {
-    try {
-        const [instructors,] = await db.execute("SELECT * FROM instructors WHERE id = ?", [req.params.id]);
-        res.send(instructors);
-    } catch (err) {
-        console.log(err);
-    }
-});
-
-// "/api/lessons/:id" gets a lessons by id
-app.use("/api/lessons/:id", async (req, res) => {
-    try {
-        const [lessons,] = await db.execute("SELECT * FROM lessons WHERE id = ?", [req.params.id]);
-        res.send(lessons);
-    } catch (err) {
-        console.log(err);
-    }
-});
-
-
-// Öğrenci güncelleme
-app.put("/api/students/:id", async (req, res) => { //TODO: Daha denemedim
+// "/api/students/:id" update student by id
+app.put("/api/students/:id", async (req, res) => {
     try {
         const studentId = parseInt(req.params.id);
         const { name, surname, department, grade, email, isActive, gender, phoneNumber, adress, gpa, imageUrl } = req.body;
@@ -98,6 +65,81 @@ app.put("/api/students/:id", async (req, res) => { //TODO: Daha denemedim
         console.log(err);
     }
 });
+
+// "/api/lessons/:id" updates lessons by id
+app.put("/api/lessons/:id", async (req, res) => {
+    try {
+        const lessonId = parseInt(req.params.id);
+        const { name, shortName, descriptions, department, grade, credit, obligation, instructor } = req.body;
+
+        const query = `
+            UPDATE lessons
+            SET name = ?, shortName = ?, descriptions = ?, department = ?, grade = ?, credit = ?, obligation = ?, instructor = ?
+            WHERE id = ?
+        `;
+
+        const values = [name, shortName, descriptions, department, grade, credit, obligation, instructor, lessonId];
+
+
+        const sanitizedValues = values.map(value => (value !== undefined) ? value : null);
+
+        await db.execute(query, sanitizedValues);
+
+        res.send("Ders güncellendi");
+        console.log("Ders güncellendi");
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+// "/api/instructors/:id" updates instructors by id
+app.put("/api/instructors/:id", async (req, res) => {
+    try {
+        const instructorId = parseInt(req.params.id);
+        const { name, surname, department, email, isActive, gender, phoneNumber, adress, imageUrl } = req.body;
+
+        const query = `
+            UPDATE instructors
+            SET name = ?, surname = ?, department = ?, email = ?, isActive = ?, gender = ?, phoneNumber = ?, adress = ?, imageUrl = ?
+            WHERE id = ?
+        `;
+
+        const values = [name, surname, department, email, isActive, gender, phoneNumber, adress, imageUrl, instructorId];
+
+
+        const sanitizedValues = values.map(value => (value !== undefined) ? value : null);
+
+        await db.execute(query, sanitizedValues);
+
+        res.send("Eğitmen güncellendi");
+        console.log("Eğitmen güncellendi");
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+// "/api/instructors/:id" gets a instructors by id
+app.use("/api/instructors/:id", async (req, res) => {
+    try {
+        const [instructors,] = await db.execute("SELECT * FROM instructors WHERE id = ?", [req.params.id]);
+        res.send(instructors);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+// "/api/lessons/:id" gets a lessons by id
+app.use("/api/lessons/:id", async (req, res) => {
+    try {
+        const [lessons,] = await db.execute("SELECT * FROM lessons WHERE id = ?", [req.params.id]);
+        res.send(lessons);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+
+
 
 // "/api/students/:id" gets a student by id
 app.use("/api/students/:id", async (req, res) => {

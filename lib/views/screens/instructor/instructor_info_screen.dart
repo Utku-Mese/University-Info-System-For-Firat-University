@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_uni/views/screens/instructor/update_instructor_screen.dart';
 import '../../../controllers/instructor_controller.dart';
 import '../../../models/instructor_model.dart';
 import '../../../utils/constants.dart';
@@ -43,6 +44,21 @@ class _InstructorsInfoScreenState extends State<InstructorsInfoScreen> {
               MyDilog.showMyDialog(
                 context: context,
                 children: [
+                  SimpleDialogOption(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return UpdateInstructurScreen(
+                                instructor: widget.instructor);
+                          },
+                        ),
+                      );
+                    },
+                    child: const Text('Edit this instructor'),
+                  ),
                   SimpleDialogOption(
                     onPressed: () {
                       AwesomeDialog(
