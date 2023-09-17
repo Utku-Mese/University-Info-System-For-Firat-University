@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_uni/views/screens/student/update_student_screen.dart';
 import '../../../controllers/student_controller.dart';
 import '../../../models/student_model.dart';
 import '../../../utils/constants.dart';
@@ -45,6 +46,20 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                 children: [
                   SimpleDialogOption(
                     onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return UpdateStudentScreen(student: widget.student);
+                          },
+                        ),
+                      );
+                    },
+                    child: const Text('Edit this student'),
+                  ),
+                  SimpleDialogOption(
+                    onPressed: () {
                       AwesomeDialog(
                         context: context,
                         dialogType: DialogType.warning,
@@ -60,7 +75,7 @@ class _StudentInfoScreenState extends State<StudentInfoScreen> {
                             Overlay.of(context),
                             CustomSnackBar.success(
                               message:
-                                  "Student ${widget.student.name} ${widget.student.surname} deleted successfully!",
+                                  "Student ${widget.student.name} ${widget.student.surname} deleted successfully! Please refresh the page.",
                             ),
                           );
                           int studentIdToDelete = widget.student.id!;

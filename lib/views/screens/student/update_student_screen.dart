@@ -6,14 +6,16 @@ import '../../../utils/constants.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-class AddStudentScreen extends StatefulWidget {
-  const AddStudentScreen({super.key});
+class UpdateStudentScreen extends StatefulWidget {
+  const UpdateStudentScreen({super.key, required this.student});
+
+  final Student student;
 
   @override
-  State<AddStudentScreen> createState() => _AddStudentScreenState();
+  State<UpdateStudentScreen> createState() => _UpdateStudentScreenState();
 }
 
-class _AddStudentScreenState extends State<AddStudentScreen> {
+class _UpdateStudentScreenState extends State<UpdateStudentScreen> {
   TextEditingController nameController = TextEditingController();
   final TextEditingController surnameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
@@ -32,6 +34,37 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    isActive = widget.student.isActive == 1 ? true : false;
+    nameController.text = widget.student.name!;
+    surnameController.text = widget.student.surname!;
+    gradeController.text = widget.student.grade!;
+    /* selectedDepartment = widget.student.department != null
+        ? widget.student.department!
+        : "Please select a department*";
+    selectedGender = widget.student.gender != null
+        ? widget.student.gender!
+        : "Please select a gender*"; */
+    widget.student.phoneNumber != null
+        ? phoneNumberController.text = widget.student.phoneNumber!
+        : phoneNumberController.text = "";
+    widget.student.adress != null
+        ? addressController.text = widget.student.adress!
+        : addressController.text = "";
+    widget.student.gpa != null
+        ? gpaController.text = widget.student.gpa.toString()
+        : gpaController.text = "";
+    widget.student.imageUrl != null
+        ? imageUrlController.text = widget.student.imageUrl!
+        : imageUrlController.text = "";
+    widget.student.email != null
+        ? emailController.text = widget.student.email!
+        : emailController.text = "";
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
@@ -40,7 +73,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
       appBar: AppBar(
         foregroundColor: primaryColor,
         title: Text(
-          "Add new student",
+          "Edit Student: ${widget.student.name} ${widget.student.surname}",
           style: GoogleFonts.poppins(
             fontSize: 20,
             fontWeight: FontWeight.w500,
@@ -327,21 +360,27 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                         );
 
                         try {
+                          int count = 0;
+                          Navigator.of(context)
+                              .popUntil((_) => count++ >= 1); //double pop
                           showTopSnackBar(
                             Overlay.of(context),
                             CustomSnackBar.success(
                               message:
-                                  "Student ${newStudent.name} ${newStudent.surname} created successfully!",
+                                  "Student ${newStudent.name} ${newStudent.surname} updating successfully! Please refresh the page.",
                             ),
                           );
                           Navigator.of(context).pop();
-                          await _studentController.createStudent(newStudent);
+                          await _studentController.updateStudent(
+                            newStudent,
+                            widget.student.id!,
+                          );
                         } catch (e) {
                           showTopSnackBar(
                             Overlay.of(context),
                             const CustomSnackBar.error(
                               message:
-                                  "An error occured while creating student!",
+                                  "An error occured while updating student!",
                             ),
                           );
                           debugPrint('Hata: $e');
