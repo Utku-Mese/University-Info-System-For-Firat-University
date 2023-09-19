@@ -3,9 +3,9 @@
 const config = {
     db: {
         host: 'localhost',
-        user: 'root',
-        password: '%HQznV8*',
-        database: 'myFirstTrial'
+        user: 'your db user',
+        password: 'your db password*',
+        database: 'your db name'
     }
 }
 
