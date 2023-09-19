@@ -4,7 +4,7 @@
 
 [Click to open video](https://youtu.be/MtTINIelL4o)
 
-
+![my_uni tambnail](https://github.com/Utku-Mese/University-Info-System-For-Firat-University/assets/94257756/23ed7eb8-f01f-4041-aa84-4fc79d7957fc)
 
 ## Table of Contents
 
