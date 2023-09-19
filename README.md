@@ -1,5 +1,11 @@
 # University Info System For Firat University
 
+## [Youtube Video](https://youtu.be/MtTINIelL4o)
+
+[Click to open video](https://youtu.be/MtTINIelL4o)
+
+![my_uni tambnail](https://github.com/Utku-Mese/University-Info-System-For-Firat-University/assets/94257756/23ed7eb8-f01f-4041-aa84-4fc79d7957fc)
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -20,8 +26,9 @@ You can access the API at http://localhost:8000/api/
 
 note: You can access database tables with .sql extension from the "db tables" folder.
 
+## In App Screenshots
 
-
+You can find it in the "screenshot" folder.
 
 ## Features
 
